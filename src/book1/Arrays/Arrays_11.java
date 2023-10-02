@@ -16,11 +16,19 @@ public class Arrays_11 {
 
         int[] arr = new int[n];
 
+        printArray(scanner, arr);
+
+        findSum(s, arr);
+    }
+
+    private static void printArray(Scanner scanner, int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print("Enter current index: ");
             arr[i] = scanner.nextInt();
         }
+    }
 
+    private static void findSum(int s, int[] arr) {
         int sum = 0;
         int endPos = 0;
         int startPos = 0;
