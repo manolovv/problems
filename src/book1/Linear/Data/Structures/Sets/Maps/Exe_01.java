@@ -1,12 +1,11 @@
 package book1.Linear.Data.Structures.Sets.Maps;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Ex_01 {
+public class Exe_01 {
     public static void main(String[] args) {
 
       /*  Write a simple program that reads from the console a sequence of usernames and keeps a collection with only
