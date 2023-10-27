@@ -51,10 +51,10 @@ public class Example_06 {
 /*
 Input:
 Sofia|Bulgaria|1
-        Veliko Tarnovo|Bulgaria|2
-        London|UK|4
-        Rome|Italy|3
-        report
+Veliko Tarnovo|Bulgaria|2
+London|UK|4
+Rome|Italy|3
+report
 Output:
 UK (total population: 4)
 =>London: 4
