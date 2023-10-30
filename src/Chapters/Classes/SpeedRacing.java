@@ -122,7 +122,8 @@ class Car {
     }
 }
 
-/*Input:
+/*
+Input:
         3
         AudiA4 18 0.34
         BMW-M2 33 0.41
@@ -137,4 +138,5 @@ Output:
         Insufficient fuel for the drive
         AudiA4 1.00 50
         BMW-M2 33.00 0
-        Ferrari-488Spider 4.41 97*/
+        Ferrari-488Spider 4.41 97
+        */
