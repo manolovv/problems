@@ -1,4 +1,4 @@
-package exercises.carSalesman;
+package exercises.classes.carSalesman;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

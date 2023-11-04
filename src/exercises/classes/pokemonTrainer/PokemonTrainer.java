@@ -1,4 +1,4 @@
-package exercises.pokemonTrainer;
+package exercises.classes.pokemonTrainer;
 
 import java.util.*;
 

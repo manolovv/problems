@@ -1,4 +1,4 @@
-package exercises.rawData;
+package exercises.classes.rawData;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package exercises.speedRacing;
+package exercises.classes.speedRacing;
 
 import java.io.BufferedReader;
 import java.io.IOException;

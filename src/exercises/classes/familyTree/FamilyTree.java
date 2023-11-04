@@ -1,4 +1,4 @@
-package exercises.familyTree;
+package exercises.classes.familyTree;
 
 import java.util.*;
 import java.util.stream.Collectors;

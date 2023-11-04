@@ -1,4 +1,4 @@
-package exercises.google;
+package exercises.classes.google;
 
 import java.util.*;
 
