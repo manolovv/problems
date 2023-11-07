@@ -45,104 +45,103 @@ public class CreateQueue {
             System.out.print(k + " ");
         }
     }
-}
+    public static class Queue {
+        private int[] arr;
+        private final int length;
+        private int top;
 
-class Queue {
-    private int[] arr;
-    private final int length;
-    private int top;
-
-    public Queue(int length) {
-        this.length = length;
-        this.arr = new int[length];
-        this.top = 0;
-    }
-
-    public int[] getArr() {
-        return arr;
-    }
-
-    public void offer(int x) {
-        if (isFull()) {
-            System.out.println("Queue is Full");
-            return;
+        public Queue(int length) {
+            this.length = length;
+            this.arr = new int[length];
+            this.top = 0;
         }
-        arr[top++] += x;
-    }
 
-    public int poll() {
-        if (isEmpty()) {
-            System.out.println("Queue is Empty");
-        }
-        int removedElement = arr[0];
-        arr = removeFirstElement();
-        top--;
-        return removedElement;
-    }
-    public int[] sort(String ascendingOrDescending) {
-        int Index;
-        if (ascendingOrDescending.equals("Ascending")) {
-            for (int i = 0; i < arr.length - 1; i++) {
-                Index = i;
-
-                for (int j = i + 1; j < arr.length; j++) {
-                    if (arr[j] < arr[Index]) {
-                        Index = j;
-                    }
-                    int temp = arr[Index];
-                    arr[Index] = arr[i];
-                    arr[i] = temp;
-                }
-            }
-            return arr;
-
-        } else if (ascendingOrDescending.equals("Descending")) {
-            for (int i = 0; i < arr.length - 1; i++) {
-                Index = i;
-
-                for (int j = i + 1; j < arr.length; j++) {
-                    if (arr[j] > arr[Index]) {
-                        Index = j;
-                    }
-                    int temp = arr[Index];
-                    arr[Index] = arr[i];
-                    arr[i] = temp;
-                }
-            }
+        public int[] getArr() {
             return arr;
         }
-        return getArr();
-    }
 
-    public boolean contains(int element) {
-        for (int k : arr) {
-            if (k == element) {
-                return true;
+        public void offer(int x) {
+            if (isFull()) {
+                System.out.println("Queue is Full");
+                return;
             }
+            arr[top++] += x;
         }
-        return false;
-    }
 
-    public int getSize() {
-        return top;
-    }
-
-    public boolean isEmpty() {
-        return top < 0;
-    }
-
-    public boolean isFull() {
-        return top == length;
-    }
-
-    public int[] removeFirstElement() {
-        int[] secondArr = new int[length];
-        int k = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (i != k) {
-                secondArr[i - 1] = arr[i];
+        public int poll() {
+            if (isEmpty()) {
+                System.out.println("Queue is Empty");
             }
+            int removedElement = arr[0];
+            arr = removeFirstElement();
+            top--;
+            return removedElement;
         }
-        return secondArr;
+        public int[] sort(String ascendingOrDescending) {
+            int Index;
+            if (ascendingOrDescending.equals("Ascending")) {
+                for (int i = 0; i < arr.length - 1; i++) {
+                    Index = i;
+
+                    for (int j = i + 1; j < arr.length; j++) {
+                        if (arr[j] < arr[Index]) {
+                            Index = j;
+                        }
+                        int temp = arr[Index];
+                        arr[Index] = arr[i];
+                        arr[i] = temp;
+                    }
+                }
+                return arr;
+
+            } else if (ascendingOrDescending.equals("Descending")) {
+                for (int i = 0; i < arr.length - 1; i++) {
+                    Index = i;
+
+                    for (int j = i + 1; j < arr.length; j++) {
+                        if (arr[j] > arr[Index]) {
+                            Index = j;
+                        }
+                        int temp = arr[Index];
+                        arr[Index] = arr[i];
+                        arr[i] = temp;
+                    }
+                }
+                return arr;
+            }
+            return getArr();
+        }
+
+        public boolean contains(int element) {
+            for (int k : arr) {
+                if (k == element) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int getSize() {
+            return top;
+        }
+
+        public boolean isEmpty() {
+            return top < 0;
+        }
+
+        public boolean isFull() {
+            return top == length;
+        }
+
+        public int[] removeFirstElement() {
+            int[] secondArr = new int[length];
+            int k = 0;
+            for (int i = 0; i < arr.length; i++) {
+                if (i != k) {
+                    secondArr[i - 1] = arr[i];
+                }
+            }
+            return secondArr;
+        }
     }
 }
