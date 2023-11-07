@@ -40,7 +40,7 @@ public class CreateQueue {
 
     }
 
-    public static void printQueue(int[] arr) {
+    private static void printQueue(int[] arr) {
         for (int k : arr) {
             System.out.print(k + " ");
         }
