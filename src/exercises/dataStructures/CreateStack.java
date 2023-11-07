@@ -22,12 +22,12 @@ public class CreateStack {
         System.out.println("The last popped element is -> " + lastPopped);
 
     }
-
     static void printStack(int[] stack) {
         for (int i : stack) {
             System.out.println(i);
         }
     }
+
     private static class Stackk {
         private int length;
         private int[] arr;

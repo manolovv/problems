@@ -39,12 +39,12 @@ public class CreateQueue {
 
 
     }
-
     private static void printQueue(int[] arr) {
         for (int k : arr) {
             System.out.print(k + " ");
         }
     }
+
     public static class Queue {
         private int[] arr;
         private final int length;
