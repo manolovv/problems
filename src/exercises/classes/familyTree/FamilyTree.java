@@ -41,18 +41,10 @@ public class FamilyTree {
         while (!"End".equals(input = scanner.nextLine())) {
 
             if (!input.contains("-")) {
-                String[] split = input.split("\\s+");
-                String personId = split[0] + " " + split[1];
-                String personBDay = split[2];
-
-                personList.add(new Person(personId, personBDay));
+                createPerson(input, personList);
 
             } else {
-                String[] split = input.split(" - ");
-                String parentId = split[0];
-                String childrenId = split[1];
-
-                parAndChiMap.putIfAbsent(parentId, childrenId);
+                sortTree(input, parAndChiMap);
             }
         }
 
@@ -60,20 +52,49 @@ public class FamilyTree {
         for (Map.Entry<String, String> entry : parAndChiMap.entrySet()) {
 
             if (entry.getKey().equals(neededPerson.getName()) || entry.getKey().equals(neededPerson.getbDay())) {
-                Person itsChild = findPeople(personList, entry.getValue());
-                neededPerson.setChildren(itsChild);
+                setChildren(entry, personList, neededPerson);
             }
             if (entry.getValue().equals(neededPerson.getName()) || entry.getValue().equals(neededPerson.getbDay())) {
-                Person itsParent = findPeople(personList, entry.getKey());
-                neededPerson.setParent(itsParent);
+                setParent(entry, personList, neededPerson);
             }
         }
-        String output = printNeededPersonAndHisTree(neededPerson);
+        String output = printResult(neededPerson);
         System.out.println(output);
     }
 
-    public static String printNeededPersonAndHisTree(Person person) {
-        String sb = person.toString() + System.lineSeparator() +
+    private static void setParent(Map.Entry<String, String> entry, List<Person> personList, Person neededPerson) {
+        Person itsParent = findPeople(personList, entry.getKey());
+        neededPerson.setParent(itsParent);
+    }
+
+    private static void setChildren(Map.Entry<String, String> entry, List<Person> personList, Person neededPerson) {
+        Person itsChild = findPeople(personList, entry.getValue());
+        neededPerson.setChildren(itsChild);
+    }
+
+    private static void sortTree(String input, Map<String, String> parAndChiMap) {
+        String[] split = input.split(" - ");
+        String parentId = split[0];
+        String childrenId = split[1];
+
+        parAndChiMap.putIfAbsent(parentId, childrenId);
+    }
+
+    private static void createPerson(String input, List<Person> personList) {
+        String[] split = input.split("\\s+");
+        String personId = split[0] + " " + split[1];
+        String personBDay = split[2];
+
+        personList.add(new Person(personId, personBDay));
+    }
+
+    private static Person findPeople(List<Person> personList, String personId) {
+        return personList.stream().filter(person ->
+                person.getName().equals(personId) ||
+                        person.getbDay().equals(personId)).findFirst().orElseThrow();
+    }
+    public static String printResult(Person person) {
+        return person.toString() + System.lineSeparator() +
                 "Parents: " + System.lineSeparator() +
                 person.getParent().stream().map(Person::toString)
                         .collect(Collectors.joining(System.lineSeparator())) +
@@ -81,13 +102,6 @@ public class FamilyTree {
                 "Children: " + System.lineSeparator() +
                 person.getChildren().stream().map(Person::toString)
                         .collect(Collectors.joining(System.lineSeparator()));
-        return sb;
-    }
-
-    private static Person findPeople(List<Person> personList, String personId) {
-        return personList.stream().filter(person ->
-                person.getName().equals(personId) ||
-                        person.getbDay().equals(personId)).findFirst().orElseThrow();
     }
 }
 
@@ -127,45 +141,7 @@ class Person {
     public List<Person> getParent() {
         return parent;
     }
-
     public String toString() {
         return name + " " + bDay;
     }
 }
-/*
-Inputs:
-        First:
-        Pesho Peshev
-        11/11/1951 - 23/05/1980
-        Penka Pesheva - 23/05/1980
-        Penka Pesheva 09/02/1953
-        Pesho Peshev - Gancho Peshev
-        Gancho Peshev 01/01/2005
-        Stamat Peshev 11/11/1951
-        Pesho Peshev 23/05/1980
-        End
-        Second:
-        13/12/1993
-        25/03/1934 - 04/04/1961
-        Poncho Tonchev 25/03/1934
-        04/04/1961 - Moncho Tonchev
-        Toncho Tonchev - Lomcho Tonchev
-        Moncho Tonchev 13/12/1993
-        Lomcho Tonchev 07/07/1995
-        Toncho Tonchev 04/04/1961
-        End
-Outputs:
-        First:
-        Pesho Peshev 23/05/1980
-        Parents:
-        Stamat Peshev 11/11/1951
-        Penka Pesheva 09/02/1953
-        Children:
-        Gancho Peshev 01/01/2005
-
-        Second:
-        Moncho Tonchev 13/12/1993
-        Parents:
-        Toncho Tonchev 04/04/1961
-        Children:
-        */

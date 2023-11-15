@@ -43,13 +43,13 @@ public class CarSalesman {
         carrList.forEach(System.out::println);
     }
 
-    static List<Enginee> engineeList = new ArrayList<>();
-    static LinkedList<Carr> carrList = new LinkedList<>();
+    static List<Engine> engineeList = new ArrayList<>();
+    static LinkedList<Car> carrList = new LinkedList<>();
 
     public static void createCar(String input) {
         String[] split = input.split("\\s+");
 
-        Carr carr = new Carr();
+        Car carr = new Car();
 
         String carModel = split[0];
         carr.setModel(carModel);
@@ -85,25 +85,25 @@ public class CarSalesman {
 
         String model = split[0];
         int power = Integer.parseInt(split[1]);
-        Enginee enginee = new Enginee(model, power);
+        Engine engine = new Engine(model, power);
 
         if (split.length == 4) {
             String efficiency = split[3];
             int displacement = Integer.parseInt(split[2]);
 
-            enginee.setEfficiency(efficiency);
-            enginee.setDisplacement(displacement);
+            engine.setEfficiency(efficiency);
+            engine.setDisplacement(displacement);
 
         } else if (split.length == 3) {
             if (isDigit(split[2])) {
                 int displacement = Integer.parseInt(split[2]);
-                enginee.setDisplacement(displacement);
+                engine.setDisplacement(displacement);
             } else {
                 String efficiency = split[2];
-                enginee.setEfficiency(efficiency);
+                engine.setEfficiency(efficiency);
             }
         }
-        engineeList.add(enginee);
+        engineeList.add(engine);
     }
 
     public static boolean isDigit(String string) {
@@ -117,13 +117,13 @@ public class CarSalesman {
     }
 }
 
-class Carr {
+class Car {
     private String model;
-    private Enginee enginee;
+    private Engine engine;
     private int weight;
     private String color;
 
-    Carr() {
+    Car() {
     }
 
     public void setWeight(int weight) {
@@ -138,16 +138,16 @@ class Carr {
         this.model = model;
     }
 
-    public void setEnginee(Enginee enginee) {
-        this.enginee = enginee;
+    public void setEnginee(Engine enginee) {
+        this.engine = enginee;
     }
 
     public String getModel() {
         return model;
     }
 
-    public Enginee getEnginee() {
-        return enginee;
+    public Engine getEngine() {
+        return engine;
     }
 
     public String getColor() {
@@ -159,18 +159,18 @@ class Carr {
     }
 
     public String toString() {
-        return (getModel() + "\n" + getEnginee() + "\n" + "Weight: " +
+        return (getModel() + "\n" + getEngine() + "\n" + "Weight: " +
                 getWeight() + "\nColor: " + getColor());
     }
 }
 
-class Enginee {
+class Engine {
     private final String model;
     private final int power;
     private int displacement;
     private String efficiency;
 
-    Enginee(String model, int power) {
+    Engine(String model, int power) {
         this.model = model;
         this.power = power;
     }

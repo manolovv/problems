@@ -56,13 +56,6 @@ class Cat {
         return name;
     }
 
-    public String getBreed() {
-        return breed;
-    }
-
-    public String getCharacteristics() {
-        return characteristics;
-    }
 
     public String toString() {
         return breed + " " + name + " " + Double.parseDouble(characteristics);

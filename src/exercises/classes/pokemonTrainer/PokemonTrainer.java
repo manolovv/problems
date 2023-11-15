@@ -23,8 +23,15 @@ public class PokemonTrainer {
 
         Map<String, Trainer> map = new HashMap<>();
 
-        String input;
+        fillPlayersContent(scanner, map);
 
+        calculatePlayersFit(scanner, map);
+
+        printResult(map);
+    }
+
+    private static void fillPlayersContent(Scanner scanner, Map<String, Trainer> map) {
+        String input;
         while (!"Tournament".equals(input = scanner.nextLine())) {
             String[] split = input.split("\\s+");
 
@@ -36,43 +43,56 @@ public class PokemonTrainer {
             Trainer trainer = new Trainer(trainerName);
             map.putIfAbsent(trainerName, trainer);
             map.get(trainerName).addPokemon(pokemon);
-
-
         }
+    }
+
+    private static void calculatePlayersFit(Scanner scanner, Map<String, Trainer> map) {
         String command;
         while (!"End".equals(command = scanner.nextLine())) {
 
             for (Map.Entry<String, Trainer> entry : map.entrySet()) {
 
-                int pokemonsCount = 0;
+                int pokemonCount = 0;
                 boolean hasNotElement = true;
                 for (Pokemon pokemon1 : entry.getValue().getPokemonList()) {
-                    pokemonsCount++;
+                    pokemonCount++;
 
-                    if (pokemon1.getElement().equals(command)) {
-
-                        int badges = entry.getValue().getBadges();
-                        badges += 1;
-                        entry.getValue().setBadges(badges);
-                        hasNotElement = false;
-                    }
+                    hasNotElement = setBadge(entry, pokemon1, command, hasNotElement);
                 }
 
                 if (hasNotElement) {
-                    for (int i = 0; i < pokemonsCount; i++) {
-
-                        int health = entry.getValue().getPokemonList().get(i).getHealth();
-                        health -= 10;
-                        entry.getValue().getPokemonList().get(i).setHealth(health);
-
-                        entry.getValue().getPokemonList().removeIf(e -> e.getHealth() <= 0);
-                    }
+                    reductionHealth(entry, pokemonCount);
                 }
             }
         }
+    }
+
+    private static void printResult(Map<String, Trainer> map) {
         for (Trainer trainer1 : map.values()) {
             System.out.printf("%s %d %d%n", trainer1.getName(), trainer1.getBadges(), trainer1.getPokemonList().size());
         }
+    }
+
+    private static void reductionHealth(Map.Entry<String, Trainer> entry, int pokemonCount) {
+        for (int i = 0; i < pokemonCount; i++) {
+
+            int health = entry.getValue().getPokemonList().get(i).getHealth();
+            health -= 10;
+            entry.getValue().getPokemonList().get(i).setHealth(health);
+
+            entry.getValue().getPokemonList().removeIf(e -> e.getHealth() <= 0);
+        }
+    }
+
+    private static boolean setBadge(Map.Entry<String, Trainer> entry, Pokemon pokemon1, String command, boolean hasNotElement) {
+        if (pokemon1.getElement().equals(command)) {
+
+            int badges = entry.getValue().getBadges();
+            badges += 1;
+            entry.getValue().setBadges(badges);
+            hasNotElement = false;
+        }
+        return hasNotElement;
     }
 }
 

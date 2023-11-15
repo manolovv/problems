@@ -40,52 +40,61 @@ public class Google {
         while (!"End".equals(input = scanner.nextLine())) {
             String[] split = input.split("\\s+");
             String userName = split[0];
+            String choice = split[1];
 
             users.putIfAbsent(userName, new User());
 
-            String choice = split[1];
             switch (choice) {
-                case "company" -> {
-                    String companyName = split[2];
-                    String department = split[3];
-                    String salary = split[4];
-
-                    Company company = new Company(companyName, department, salary);
-                    users.get(userName).setCompany(company);
-                }
-                case "pokemon" -> {
-                    String pokemonName = split[2];
-                    String pokemonType = split[3];
-
-                    Pokemon pokemon = new Pokemon(pokemonName, pokemonType);
-                    users.get(userName).addPokemon(pokemon);
-                }
-                case "parents" -> {
-                    String parentName = split[2];
-                    String parentBDay = split[3];
-
-                    Parent parent = new Parent(parentName, parentBDay);
-                    users.get(userName).addParent(parent);
-                }
-                case "children" -> {
-                    String childrenName = split[2];
-                    String childrenBDay = split[3];
-
-                    Children children = new Children(childrenName, childrenBDay);
-                    users.get(userName).addChildren(children);
-                }
-                case "car" -> {
-                    String carModel = split[2];
-                    String carSpeed = split[3];
-
-                    Car car = new Car(carModel, carSpeed);
-                    users.get(userName).setCar(car);
-                }
+                case "company" -> setCompany(split, users, userName);
+                case "pokemon" -> addPokemon(split, users, userName);
+                case "parents" -> addParent(split, users, userName);
+                case "children" -> addChildren(split, users, userName);
+                case "car" -> setCar(split, users, userName);
             }
         }
         String keyName = scanner.nextLine();
-        System.out.println(keyName);
-        System.out.println(users.get(keyName).toString());
+        System.out.println(keyName + "\n" + users.get(keyName).toString());
+    }
+
+    private static void setCar(String[] split, LinkedHashMap<String, User> users, String userName) {
+        String carModel = split[2];
+        String carSpeed = split[3];
+
+        Car car = new Car(carModel, carSpeed);
+        users.get(userName).setCar(car);
+    }
+
+    private static void addChildren(String[] split, LinkedHashMap<String, User> users, String userName) {
+        String childrenName = split[2];
+        String childrenBDay = split[3];
+
+        Children children = new Children(childrenName, childrenBDay);
+        users.get(userName).addChildren(children);
+    }
+
+    private static void addParent(String[] split, LinkedHashMap<String, User> users, String userName) {
+        String parentName = split[2];
+        String parentBDay = split[3];
+
+        Parent parent = new Parent(parentName, parentBDay);
+        users.get(userName).addParent(parent);
+    }
+
+    private static void addPokemon(String[] split, LinkedHashMap<String, User> users, String userName) {
+        String pokemonName = split[2];
+        String pokemonType = split[3];
+
+        Pokemon pokemon = new Pokemon(pokemonName, pokemonType);
+        users.get(userName).addPokemon(pokemon);
+    }
+
+    private static void setCompany(String[] split, LinkedHashMap<String, User> users, String userName) {
+        String companyName = split[2];
+        String department = split[3];
+        String salary = split[4];
+
+        Company company = new Company(companyName, department, salary);
+        users.get(userName).setCompany(company);
     }
 }
 
@@ -174,10 +183,8 @@ class Car {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.model).append(" ");
-        sb.append(this.speed);
-        return sb.toString();
+        return this.model + " " +
+                this.speed;
     }
 }
 
@@ -190,11 +197,9 @@ class Parent {
         this.bDay = bDay;
     }
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.name).append(" ");
-        sb.append(this.bDay).append(" ");
 
-        return sb.toString();
+        return this.name + " " +
+                this.bDay + " ";
     }
 }
 
@@ -207,11 +212,9 @@ class Children {
         this.bDay = bDay;
     }
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.name).append(" ");
-        sb.append(this.bDay).append(" ");
 
-        return sb.toString();
+        return this.name + " " +
+                this.bDay + " ";
     }
 }
 
@@ -224,10 +227,8 @@ class Pokemon {
         this.type = type;
     }
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.name).append(" ");
-        sb.append(this.type).append(" ");
 
-        return sb.toString();
+        return this.name + " " +
+                this.type + " ";
     }
 }
