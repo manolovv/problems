@@ -1,43 +1,41 @@
 package exercises.dataStructures;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateMap {
     public static void main(String[] args) {
 
-        Map map = new Map(6);
+        Map map = new Map();
 
+        map.put("Manol", 69);
         map.put("Manol", 6);
-        map.put("Ivan", 6);
-        map.put("Milen", 0);
-        map.putIfAbsent("Milen", 66);
-        map.put("Tanya", 26);
-        map.putIfAbsent("Mitko", 32);
-        map.put("Iva", 25);
-        map.put("Ivan", 17);
-
-        boolean containsKey = map.containsKey("Manol");
-        int takenValue = map.get("Manol");
+        map.putIfAbsent("Tanya", 0);
+        map.putIfAbsent("Tanya", 5);
+        map.putIfAbsent("Ivan", 73);
 
         map.printKeyAndValue();
-        System.out.println("Is map contains key 'Manol'? -> " + containsKey);
-        System.out.println("Manol`s value is -> " + takenValue);
+
+        System.out.println("\nValue of key 'Manol' is: " + map.get("Manol") +
+                "\nIs Key contains 'Tanya' ? : " + map.containsKey("Tanya") +
+                "\nIs Value contains number '69' : " + map.containsValue(69));
+
     }
     private static class Map {
-        private final String[] keyArr;
-        private final int[] valueArr;
-        private int top;
+        private final List<String> keyList;
+        private final List<Integer> valueList;
 
-        public Map(int length) {
-            this.keyArr = new String[length];
-            this.valueArr = new int[length];
-            this.top = 0;
+        public Map() {
+            this.keyList = new ArrayList<>();
+            this.valueList = new ArrayList<>();
         }
 
         public void put(String key, int value) {
             if (containsKey(key)) {
-                addValue(takeKeyIndex(key), value);
+                changeValue(takeKeyIndex(key), value);
             } else {
-                keyArr[top++] = key;
+                keyList.add(key);
                 addValue(takeKeyIndex(key), value);
             }
         }
@@ -45,10 +43,10 @@ public class CreateMap {
         public void putIfAbsent(String key, int value) {
             if (containsKey(key)) {
                 if (!containsValue(takeKeyIndex(key))) {
-                    addValue(takeKeyIndex(key), value);
+                    changeValue(takeKeyIndex(key), value);
                 }
             } else {
-                keyArr[top++] = key;
+                keyList.add(key);
                 addValue(takeKeyIndex(key), value);
             }
         }
@@ -57,7 +55,7 @@ public class CreateMap {
             int value;
             if (containsKey(key)) {
                 int index = takeKeyIndex(key);
-                value = valueArr[index];
+                value = valueList.get(index);
                 return value;
             } else {
                 throw new IllegalArgumentException("Null");
@@ -65,26 +63,17 @@ public class CreateMap {
         }
 
         public boolean containsKey(String searchingKey) {
-            for (String element : keyArr) {
-                if (element != null) {
-                    if (element.hashCode() == searchingKey.hashCode()) {
-                        if (element.equals(searchingKey)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            return keyList.contains(searchingKey);
         }
 
         public boolean containsValue(int searchingIndex) {
-            return valueArr[searchingIndex] != 0;
+            return valueList.contains(searchingIndex);
         }
 
         public int takeKeyIndex(String key) {
             int index = 0;
-            for (int i = 0; i < keyArr.length; i++) {
-                if (keyArr[i].equals(key)) {
+            for (int i = 0; i < keyList.size(); i++) {
+                if (keyList.get(i).equals(key)) {
                     index = i;
                     break;
                 }
@@ -93,12 +82,17 @@ public class CreateMap {
         }
 
         private void addValue(int index, int value) {
-            valueArr[index] = value;
+            valueList.add(index, value);
+        }
+
+        public void changeValue(int index, int value) {
+            valueList.remove(index);
+            valueList.add(value);
         }
 
         public void printKeyAndValue() {
-            for (int i = 0; i < keyArr.length; i++) {
-                System.out.print("Key: " + keyArr[i] + " -> Value: " + valueArr[i] + "\n");
+            for (int i = 0; i < keyList.size(); i++) {
+                System.out.print("Key: " + keyList.get(i) + " -> Value: " + valueList.get(i) + "\n");
             }
         }
     }

@@ -1,89 +1,84 @@
 package exercises.dataStructures;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateStack {
     public static void main(String[] args) {
 
-        Stackk stack = new Stackk(5);
-
-        stack.push(1);
-        stack.push(2);
-        stack.push(3);
-        stack.push(4);
-        stack.push(5);
-        stack.pop();
+        Stack stack = new Stack();
         stack.push(6);
-        int lastPopped = stack.pop();
-        stack.push(10);
+        stack.push(4);
+        stack.push(8);
+        int peekedElement = stack.peek();
+        int poppedElement = stack.pop();
+        stack.push(69);
+        stack.push(73);
+        int searchingElementIndex = stack.search(69);
+        int stackSize = stack.getSize();
 
-        printStack(stack.getArr());
-        int size = stack.getSize();
-        System.out.println("Its array size -> " + size);
-        System.out.println("The last popped element is -> " + lastPopped);
+        System.out.println("Peeked element: " + peekedElement +
+                "\nPopped element: " + poppedElement +
+                "\nSearching element index: " + searchingElementIndex +
+                "\nStack size: " + stackSize);
+
+        printStack(stack);
 
     }
-    static void printStack(int[] stack) {
-        for (int i : stack) {
-            System.out.println(i);
+    static void printStack(Stack stack) {
+        System.out.print("All stack elements: ");
+        for (int i = 0; i < stack.getSize(); i++) {
+            System.out.print(stack.get(i) + " ");
         }
     }
 
-    private static class Stackk {
-        private int length;
-        private int[] arr;
-        private int top;
+    private static class Stack {
+        private final List<Integer> list;
 
-        public Stackk(int length) {
-            this.length = length;
-            this.arr = new int[length];
-            this.top = -1;
+        public Stack() {
+            this.list = new ArrayList<>();
         }
 
         public void push(int e) {
-            if (isFull()) {
-                System.out.println("Stack is full");
-            }
-            arr[++top] = e;
+            list.add(e);
         }
 
         public int pop() {
             if (isEmpty()) {
+                throw new IllegalArgumentException("Stack is empty");
+            }
+            int lastElement = list.size() - 1;
+            return  list.remove(lastElement);
+        }
+
+        public int peek() {
+            if (isEmpty()) {
                 System.out.println("Stack is empty");
             }
-            int popped = arr[top--];
-            length--;
-            length++;
-            arr = removeIndex(top);
-            return popped;
+            int lastElement = list.size() - 1;
+            return list.get(lastElement);
+        }
+
+        public int search(int element) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == element) {
+                    return i;
+                }
+            }
+            return Integer.parseInt(null);
         }
 
         public int getSize() {
-            return ++top;
+            return list.size();
         }
 
         public boolean isEmpty() {
-            return top < 0;
+            return list.isEmpty();
         }
 
-        public boolean isFull() {
-            return top == length - 1;
+        public int get(int index) {
+            return list.get(index);
         }
-
-        public int[] getArr() {
-            return arr;
-        }
-
-        public int[] removeIndex(int indexForRemove) {
-            int[] arr2 = new int[length];
-
-            for (int i = 0; i < arr.length; i++) {
-
-                if (i != indexForRemove + 1) {
-                    arr2[i] = arr[i];
-                }
-            }
-            return arr2;
-        }
-
     }
 }
