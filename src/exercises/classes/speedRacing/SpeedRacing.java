@@ -1,10 +1,8 @@
 package exercises.classes.speedRacing;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /*Your task is to implement a program that keeps track of cars and their fuel and supports methods for moving the cars.
 Define a class Car that keeps track of a car information Model, fuel amount, fuel cost for 1 kilometer and
@@ -22,26 +20,30 @@ distance traveled should be increased by the amount of kilometers traveled, othe
 in input and its current fuel amount and distance traveled in the format "<Model> <fuelAmount>  <distanceTraveled>",
 where the fuel amount should be printed to two decimal places after the separator.*/
 
-
 public class SpeedRacing {
 
     static List<Car> carList = new ArrayList<>();
     public static void main(String[] args) throws IOException {
 
-        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(bf.readLine());
+        Scanner scanner = new Scanner(System.in);
+        int n = Integer.parseInt(scanner.nextLine());
 
         while (n-- > 0) {
-            String input = bf.readLine();
+            String input = scanner.nextLine();
             addCar(input);
         }
 
-        String input = bf.readLine();
+        String input = scanner.nextLine();
         while (!input.equals("End")) {
             tryToDrive(input);
 
-            input = bf.readLine();
+            input = scanner.nextLine();
         }
+
+        printResult();
+    }
+
+    private static void printResult() {
         for (Car car : carList) {
             System.out.println(car);
         }
@@ -113,7 +115,7 @@ class Car {
             this.setFuelAmount(this.getFuelAmount() - fuelNeeded);
             this.setDistance(this.getDistance() + km);
         } else {
-            System.out.println("Insufficient fuel for the drive..");
+            System.out.print("\nInsufficient fuel for the drive..");
         }
     }
 
@@ -121,22 +123,3 @@ class Car {
         return String.format("%s, %.2f, %d", getModel(), getFuelAmount(), getDistance());
     }
 }
-
-/*
-Input:
-        3
-        AudiA4 18 0.34
-        BMW-M2 33 0.41
-        Ferrari-488Spider 50 0.47
-        Drive Ferrari-488Spider 97
-        Drive Ferrari-488Spider 35
-        Drive AudiA4 85
-        Drive AudiA4 50
-        End
-Output:
-        Insufficient fuel for the drive
-        Insufficient fuel for the drive
-        AudiA4 1.00 50
-        BMW-M2 33.00 0
-        Ferrari-488Spider 4.41 97
-        */
