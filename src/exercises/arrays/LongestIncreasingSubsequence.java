@@ -1,20 +1,18 @@
 package exercises.arrays;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class LongestIncreasingSubsequence {
 
-    /*Write a program, which reads an array of integer numbers from the console and removes a minimal number
-    of elements in such a way that the remaining array is sorted in an increasing order.
-    Example: {6, 1, 4, 3, 0, 3, 6, 4, 5} -> {1, 3, 3, 4, 5}
+    /*Write a program, which finds the maximal sequence of increasing elements in an array arr[n].
+    It is not necessary the elements to be consecutively placed. E.g.:
     */
 
     public static void main(String[] args) {
 
-        int[] arr = {6, 1, 4, 3, 0, 3, 6, 4, 5};
+        int[] arr = {9, 6, 2, 7, 4, 7, 6, 5, 8, 4};
         int[] bestLength = new int[arr.length];
         int[] prevIndex = new int[arr.length];
         int lastIndex = -1;
