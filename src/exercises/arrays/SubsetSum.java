@@ -40,11 +40,10 @@ public class SubsetSum {
                 }
             }
             if (finish) {
-                System.out.print("S = " + s + " -> ");
+                System.out.print("\nS = " + s + " -> ");
                 for (int element : found) {
                     System.out.print(element + " ");
                 }
-                break;
             }
         }
     }
